@@ -742,14 +742,45 @@ function selectBhk(bhkId) {
 
 function nextStep() {
     const totalSteps = 4;
-    document.getElementById(step${currentStep}-container).classList.add('hidden');
-    document.getElementById(step${currentStep}Label).classList.remove('active');
+    
+    // ✅ VALIDATION FOR EACH STEP
+    if (currentStep === 1) {
+        // Check if BHK type and size are selected
+        const sizeSelected = document.querySelector('input[name="size_type"]:checked');
+        if (!sizeSelected) {
+            alert('Please select a BHK type and size before proceeding!');
+            return;
+        }
+    }
+    
+    if (currentStep === 2) {
+        // Check if material is selected
+        const materialSelected = document.querySelector('input[name="material_type"]:checked');
+        if (!materialSelected) {
+            alert('Please select a material type before proceeding!');
+            return;
+        }
+    }
+    
+    if (currentStep === 3) {
+        // Check if package is selected
+        const packageSelected = document.querySelector('input[name="package_type"]:checked');
+        if (!packageSelected) {
+            alert('Please select a package before proceeding!');
+            return;
+        }
+    }
+    
+    // Proceed to next step
+    document.getElementById(`step${currentStep}-container`).classList.add('hidden');
+    document.getElementById(`step${currentStep}Label`).classList.remove('active');
     currentStep++;
+    
     if (currentStep <= totalSteps) {
-        document.getElementById(step${currentStep}-container).classList.remove('hidden');
-        document.getElementById(step${currentStep}Label).classList.add('active');
+        document.getElementById(`step${currentStep}-container`).classList.remove('hidden');
+        document.getElementById(`step${currentStep}Label`).classList.add('active');
         const progressBar = document.getElementById('progressBar');
-        progressBar.style.width = ${(currentStep - 1) / (totalSteps - 1) * 100}%;
+        progressBar.style.width = `${(currentStep - 1) / (totalSteps - 1) * 100}%`;
     } else {
         currentStep = totalSteps;
     }
@@ -758,18 +789,20 @@ function nextStep() {
 function previousStep() {
     if (currentStep > 1) {
         const totalSteps = 4;
-        document.getElementById(step${currentStep}-container).classList.add('hidden');
-        document.getElementById(step${currentStep}Label).classList.remove('active');
+        document.getElementById(`step${currentStep}-container`).classList.add('hidden');
+        document.getElementById(`step${currentStep}Label`).classList.remove('active');
         currentStep--;
+        
         if (currentStep > 0) {
-            document.getElementById(step${currentStep}-container).classList.remove('hidden');
-            document.getElementById(step${currentStep}Label).classList.add('active');
+            document.getElementById(`step${currentStep}-container`).classList.remove('hidden');
+            document.getElementById(`step${currentStep}Label`).classList.add('active');
             const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = ${(currentStep - 1) / (totalSteps - 1) * 100}%;
+            progressBar.style.width = `${(currentStep - 1) / (totalSteps - 1) * 100}%`;
         }
     }
 }
 </script>
+
 
 </body>
 </html>
